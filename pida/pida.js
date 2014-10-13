@@ -12,6 +12,7 @@
 		this.wrapped = obj;
 	};
 
+	//抹平数组
 	var flatten = function(arr,outer){
 		var len = arr.length,
 			ret = !outer? []:outer;
@@ -31,6 +32,7 @@
 		return flatten(arr,outer);
 	}
 
+	//数组去重
 	_.unique = function(arr){
 		var len = arr.length,
 			hash = {},
@@ -46,6 +48,31 @@
 		return ret;
 	}
 
+	//解析url
+	_.parseUrl = function(url){
+		var a  = document.createElement('a');
+
+		a.href = url;
+
+		return {
+			protocol: a.protocol.replace(/:/,''),
+			host: a.hostname,
+			path: a.pathname,
+			query: a.search.replace(/^\?/,''),
+			params: (function(){
+				var ret = {},
+					seg = a.search.replace(/^\?/,'').split('&'),
+					s;
+				for (var i = 0; i < seg.length; i++) {
+					if(!seg[i]) continue;
+					s = seg[i].split('=');
+					ret[s[0]] = s[1];
+				};
+				return ret;
+			})(),
+			hash: a.hash.replace('#','')
+		}
+	}
 
 	if(typeof define === 'function' && define.amd){
 		define('pida',[],function(){
