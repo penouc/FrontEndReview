@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<progress>
+<body>
+	<ul id="test" class="a b c d">
+		<li>这是第一条</li>
+		<li>这是第二条</li>
+		<li>这是第三条</li>
+	</ul>	
+</body>
+
+<script type="text/javascript">
+	var ulEle = document.querySelector('#test');
+	var index = 0;
+	for(var i = 0; i < ulEle.childNodes.length;i++){
+		if(ulEle.childNodes[i].nodeName == 'LI'){
+			ulEle.childNodes[i].onclick = (function(t){
+				return function(){console.log((t+1)/2);}
+			})(i)
+	}
+	}
+
+	function addClass(ele,attr){
+		var arr = Array.prototype.slice.call(ele.classList,0);
+		console.log(arr);
+		if(arr.indexOf(attr) == -1){
+			arr.push(attr);
+		}
+		ele.className = arr.join(' ');
+	}
+</script>
+</html>
